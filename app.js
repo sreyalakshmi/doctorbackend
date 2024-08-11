@@ -4,6 +4,7 @@ const cors=require("cors")
 const jwt=require("jsonwebtoken")
 const bcrypt=require("bcrypt")
 const { loginModel } = require("./models/admin")
+const { doctorModel } = require("./Models/doctor")
 
 const app=express()
 app.use(cors())
@@ -46,7 +47,21 @@ app.post("/adminsignin",(req,res)=>{
         }
     ).catch()
 })
-
+app.post("/addDoctor",(req,res)=>{
+    let input =req.body
+    let token=req.headers.token
+    jwt.verify(token,"doctor-app",(error,decoded)=>{
+        if(decoded && decoded.email)
+        {
+            let result=new doctorModel(input)
+            result.save()
+            res.json({"status":"success"})
+        }else
+        {
+            res.json({"status":"Invalid Authentication"}) 
+        }
+    })
+})
 
 app.listen(8080,()=>{
     console.log("server started")
