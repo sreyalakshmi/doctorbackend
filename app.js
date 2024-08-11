@@ -9,7 +9,7 @@ const app=express()
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://sreya:sreya123@cluster0.rk6cqoj.mongodb.net/swiggydb?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect("mongodb+srv://sreya:sreya123@cluster0.rk6cqoj.mongodb.net/doctordb?retryWrites=true&w=majority&appName=Cluster0")
 
 app.post("/signUp",(req,res)=>{
     let input=req.body
